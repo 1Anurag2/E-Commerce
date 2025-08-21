@@ -1,8 +1,10 @@
 import express from 'express';
 const app = express();
 import ConnectDB from './config/database.js';
-import Router from './routers/productRoutes.js';
+import productRouter from './routers/productRoutes.js';
+import userRouter from './routers/userRoutes.js';
 import errorHandler from './middleware/error.js';
+import cookieParser from 'cookie-parser';
 
 // Connect to the database
 ConnectDB();
@@ -15,9 +17,11 @@ process.on('uncaughtException', (err) => {
 
 // Middleware
 app.use(express.json());
-
+app.use(cookieParser());
+ 
 //Router
-app.use('/api/v1', Router);
+app.use('/api/v1', productRouter);
+app.use('/api/v1', userRouter);
 app.use(errorHandler);
 
 
