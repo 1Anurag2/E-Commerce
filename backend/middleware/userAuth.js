@@ -14,3 +14,17 @@ export const verifyUserAuth = handleAsyncError(async (req, res, next) => {
   req.user = await User.findById(decodedData.id);
   next();
 });
+
+export const roleBasedAccess = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new handleError(
+          `Role: ${req.user.role} is not allowed to access this resource`,
+          403
+        )
+      );
+    }
+    next();
+  };
+}
