@@ -162,6 +162,59 @@ const updateProfile = handleAsyncError(async (req,res,next)=>{
   })
 })
 
+// Admin - Getting user information
+const getUserList = handleAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+//Admin - Getting single user information
+const getSingleUser = handleAsyncError(async (req, res, next) => { 
+  const user = await User.findById(req.params.id);
+  if(!user){
+    return next(new handleError(`User does not exist with id: ${req.params.id}` , 404));
+  }
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+//Admin - Changing user role
+const updateUserRole = handleAsyncError(async (req, res, next) => {
+  const { role } = req.body;
+  const updateUserDetail = {
+    role,
+  };
+  const user = await User.findByIdAndUpdate(req.params.id, updateUserDetail, {
+    new: true,
+    runValidators: true,
+  });
+  if (!user) {
+    return next(new handleError(`User does not exist with id: ${req.params.id}`, 404));
+  }
+  res.status(200).json({
+    success: true,
+    message: "User Role Updated Successfully",
+    user,
+  })
+});
+
+//Admin - Deleting user Profile
+const deleteUser = handleAsyncError(async (req, res, next) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+  if (!user) {
+    return next(new handleError(`User does not exist with id: ${req.params.id}`, 404));
+  }
+  res.status(200).json({
+    success: true,
+    message: "User Deleted Successfully",
+  });
+});
+
 export default {
   registerUser,
   loginUser,
@@ -170,5 +223,9 @@ export default {
   resetPasswordHandler,
   getUserDetails,
   updatePassword,
-  updateProfile
+  updateProfile,
+  getUserList,
+  getSingleUser,
+  updateUserRole,
+  deleteUser  
 };
