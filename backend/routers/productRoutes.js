@@ -42,5 +42,9 @@ router
 router
   .route("/review")
   .put(verifyUserAuth, productController.createReviewForProduct);
+router
+  .route("/reviews") 
+  .get( productController.getProductReviews)
+  .delete(verifyUserAuth, productController.deleteReview);
 
 export default router;
