@@ -3,6 +3,7 @@ const app = express();
 import ConnectDB from './config/database.js';
 import productRouter from './routers/productRoutes.js';
 import userRouter from './routers/userRoutes.js';
+import orderRouter from './routers/orderRoutes.js';
 import errorHandler from './middleware/error.js';
 import cookieParser from 'cookie-parser';
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 //Router
 app.use('/api/v1', productRouter);
 app.use('/api/v1', userRouter);
+app.use('/api/v1', orderRouter);
 app.use(errorHandler);
 
 
