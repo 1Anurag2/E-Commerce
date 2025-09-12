@@ -37,7 +37,7 @@ router
 
 router
   .route("/product/:id")
-  .get(verifyUserAuth, productController.getSingleProduct);
+  .get(productController.getSingleProduct);
 
 router
   .route("/review")

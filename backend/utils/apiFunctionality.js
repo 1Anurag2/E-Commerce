@@ -6,12 +6,11 @@ class APIFunctionality {
   search() {
     const keyword = this.queryStr.keyword
       ? {
-          name: {
+          $or:[{name: {
             $regex: this.queryStr.keyword,
             $options: "i",
-          },
-        }
-      : {};
+          }}]
+        } : {};
     this.query = this.query.find({ ...keyword });
     return this;
   }
