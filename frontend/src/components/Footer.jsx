@@ -16,10 +16,10 @@ function footer() {
         <div className="footer-section social">
           <h3>Follow me</h3>
           <div className="social-links">
-            <a href="*" target="_blank" >
+            <a href="https://github.com/1Anurag2" target="_blank" >
               <GitHub className = 'social-icon'/>
             </a>
-            <a href="*" target="_blank" >
+            <a href="https://www.linkedin.com/in/anurag-verma-825423257/" target="_blank" >
               <LinkedIn className = 'social-icon'/>
             </a>
             <a href="*" target="_blank" >

@@ -22,8 +22,8 @@ function Product({ product }) {
           className="product-image-card"
         />{" "}
         <div className="product-details">
-          <h3 className="product-title">{product.name}</h3>
-          <p className="product-price">
+          <h3 className="product-title">{product.category}</h3>
+          <p className="home-price">
             <strong>Price </strong>
             {product.price}/-
           </p>
