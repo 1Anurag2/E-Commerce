@@ -6,6 +6,7 @@ import userRouter from './routers/userRoutes.js';
 import orderRouter from './routers/orderRoutes.js';
 import errorHandler from './middleware/error.js';
 import cookieParser from 'cookie-parser';
+import fileUpload from 'express-fileupload';
 
 // Connect to the database
 ConnectDB();
@@ -17,8 +18,9 @@ process.on('uncaughtException', (err) => {
 })
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
+app.use(fileUpload())
  
 //Router
 app.use('/api/v1', productRouter);
