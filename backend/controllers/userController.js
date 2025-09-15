@@ -4,18 +4,23 @@ import User from "../models/userModel.js";
 import { sendToken } from "../utils/jwtToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
+import { v2 as cloudinary } from "cloudinary";
 
 //Register
 const registerUser = handleAsyncError(async (req, res, next) => {
-  const { name, email, password } = req.body;
-
+  const { name, email, password ,avatar} = req.body;
+  const myCloud = await cloudinary.uploader.upload(avatar, {
+    folder: "avatars",
+    width: 150,
+    crop: "scale"
+  });
   const user = await User.create({
     name,
     email,
     password,
     avatar: {
-      public_id: "sample_id",
-      url: "sample_url",
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
     },
   });
   sendToken(user, 201, res);
@@ -144,23 +149,41 @@ const updatePassword = handleAsyncError(async (req,res,next)=>{
 })
 
 //updating user profile
-const updateProfile = handleAsyncError(async (req,res,next)=>{
-  const {name , email} = req.body
-  const updateUserDetail ={
-    name,
-    email
+const updateProfile = handleAsyncError(async (req, res, next) => {
+  const { name, email, avatar } = req.body;
+
+  const updateUserDetail = { name, email };
+
+  if (avatar !== "") {
+    const currentUser = await User.findById(req.user.id);
+    const imageId = currentUser.avatar.public_id;
+    await cloudinary.uploader.destroy(imageId);
+    
+    // Upload new avatar
+    const myCloud = await cloudinary.uploader.upload(avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
+    updateUserDetail.avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
   }
-  const user = await User.findByIdAndUpdate(req.user.id , updateUserDetail , {
-    new:true,
-    runValidators:true,
-    useFindAndModify:false
-  })
+
+  const user = await User.findByIdAndUpdate(req.user.id, updateUserDetail, {
+    new: true,
+    runValidators: true,
+  });
+
   res.status(200).json({
-    success:true,
-    message : "Profile Updated Successfully",
-    user
-  })
-})
+    success: true,
+    message: "Profile Updated Successfully",
+    user,
+  });
+});
+
 
 // Admin - Getting user information
 const getUserList = handleAsyncError(async (req, res, next) => {
