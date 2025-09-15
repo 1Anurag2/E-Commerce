@@ -8,9 +8,9 @@ router.route('/login').post(userContoller.loginUser);
 router.route('/logout').post(userContoller.logout);
 router.route('/password/forgot').post(userContoller.resetPassword);
 router.route('/reset/:token').post(userContoller.resetPasswordHandler);
-router.route('/profile').post(verifyUserAuth,userContoller.getUserDetails)
+router.route('/profile').get(verifyUserAuth,userContoller.getUserDetails)
 router.route('/password/update').post(verifyUserAuth,userContoller.updatePassword);
-router.route('/profile/update').post(verifyUserAuth,userContoller.updateProfile);
+router.route('/profile/update').put(verifyUserAuth,userContoller.updateProfile);
 router.route('/admin/users').get(verifyUserAuth,roleBasedAccess('admin'),userContoller.getUserList);
 router.route('/admin/users/:id').get(verifyUserAuth,roleBasedAccess('admin'),userContoller.getSingleUser)
     .put(verifyUserAuth,roleBasedAccess('admin'),userContoller.updateUserRole)
