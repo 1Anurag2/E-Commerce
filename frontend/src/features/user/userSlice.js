@@ -63,15 +63,32 @@ export const logout = createAsyncThunk(
   }
 );
 
+// Update Profile
+export const updateProfile = createAsyncThunk(
+  "user/updateProfile",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put("/api/v1/profile/update", formData, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }); 
+       return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || { message: "Profile update failed" });
+    }
+  }
+);
+
 // ================== Slice ==================
 const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    loading: false,
+    loading: true,
     error: null,
     success: false,
     isAuthenticated: false,
+    message: null,
   },
   reducers: {
     removeErrors: (state) => {
@@ -149,6 +166,26 @@ const userSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Logout failed";
+      });
+
+      // ===== Update Profile =====
+      builder
+      .addCase(updateProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.user = action.payload?.user || null;
+        state.success = action.payload?.success ;
+        state.message = action.payload?.message ;
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Profile update failed";
+        state.success = false;
       });
   },
 });
