@@ -43,7 +43,7 @@
   border-radius: 10px;
   box-shadow: var(--shadow-md);
   text-align: center;
-  width: 150px;
+  width: 160px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: 1rem 0;
   display: flex;
@@ -61,7 +61,7 @@
   object-fit: contain;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  max-height: 200px;
+  max-height: 150px;
 }
 
 .product-details {
@@ -81,7 +81,7 @@
   margin-bottom: 0.5rem;
 }
 
-.product-price {
+.home-price {
   font-size: 1rem;
   font-weight: bold;
   color: var(--primary-main);
