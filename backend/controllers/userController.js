@@ -69,7 +69,7 @@ try {
   } catch (error) {
     return next(new handleError("Error generating reset token", 500));
   }
-  const resetUrl = `${req.protocol}://${req.get("host")}/api/v1/reset/${resetToken}`;
+  const resetUrl = `${req.protocol}://${req.get("host")}/reset/${resetToken}`;
   console.log(resetUrl);
   const message = `Use the following link to reset your password : ${resetUrl} \n\n This link will expire in 30 minutes.\n\n
   If you didn't request a password reset , please ignore this email.`;
