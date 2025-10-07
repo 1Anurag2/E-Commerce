@@ -3,11 +3,7 @@ import "../UserStyles/Form.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  login,
-  removeErrors,
-  removeSuccess,
-} from "../features/user/userSlice";
+import { login, removeErrors, removeSuccess } from "../features/user/userSlice";
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -85,12 +81,14 @@ function Login() {
               onChange={handleChange}
             />
           </div>
+          <p className="form-link">
+            <Link to="/password/forgot">Forgot Password?</Link>
+          </p>
           <button className="authBtn" disabled={loading}>
             {loading ? "Login..." : "Sign In"}
           </button>
-          <p className="form-links">Forgot your password?<Link to="/password/forgot"> Reset here</Link></p>
           <p className="form-links">
-            Don’t have an account? <Link to="/register">Sign up here</Link>
+            Don’t have an account? <Link to="/register">Sign Up</Link>
           </p>
         </form>
       </div>
