@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ element }) {
-  const { isAuthenticated, loading } = useSelector((state) => state.user);
+  const { isAuthenticated , loading } = useSelector((state) => state.user);
   if (loading) {
     return <Loader />;
   }
