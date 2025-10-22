@@ -40,7 +40,7 @@ function PaymentSuccess() {
             id: reference,
             status: "succeeded",
           },
-          itemPrice: orderItem.subtotal,
+          itemsPrice: orderItem.subtotal,
           taxPrice: orderItem.tax,
           shippingPrice: orderItem.shipping,
           totalPrice: orderItem.total,
