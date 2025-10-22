@@ -43,7 +43,7 @@
   border-radius: 10px;
   box-shadow: var(--shadow-md);
   text-align: center;
-  width: 160px;
+  width: 186px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: 1rem 0;
   display: flex;
@@ -104,3 +104,5 @@
 .add-to-cart:hover {
   background-color: var(--primary-dark);
 }
+
+
