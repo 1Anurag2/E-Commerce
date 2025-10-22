@@ -13,8 +13,7 @@ import NoProducts from "../components/NoProducts";
 import Pagination from "../components/Pagination";
 
 function Products() {
-  const { loading, error, products, resultPerPage, productCount, totalPages } =
-    useSelector((state) => state.product);
+  const { loading, error, products, resultPerPage, productCount, totalPages } =useSelector((state) => state.product);
 
   const dispatch = useDispatch();
   const location = useLocation();
