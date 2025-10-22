@@ -4,9 +4,12 @@ import ConnectDB from './config/database.js';
 import productRouter from './routers/productRoutes.js';
 import userRouter from './routers/userRoutes.js';
 import orderRouter from './routers/orderRoutes.js';
+import payment from './routers/paymentRoutes.js';
 import errorHandler from './middleware/error.js';
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
+import dotenv from 'dotenv';
+
 
 // Connect to the database
 ConnectDB();
@@ -26,7 +29,10 @@ app.use(fileUpload())
 app.use('/api/v1', productRouter);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', orderRouter);
+app.use('/api/v1', payment);
+
 app.use(errorHandler);
+dotenv.config({ path: 'backend/config/.env' });
 
 
 
