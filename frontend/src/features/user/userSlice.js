@@ -141,11 +141,13 @@ export const resetPassword = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: null,
+    user: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null,
     loading: true,
     error: null,
     success: false,
-    isAuthenticated: false,
+    isAuthenticated: localStorage.getItem("isAuthenticated")==='true',
     message: null,
   },
   reducers: {
@@ -168,7 +170,14 @@ const userSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.user = action.payload.user;
-        state.isAuthenticated = true;
+        state.isAuthenticated = Boolean(action.payload?.user);
+
+        // Store in localStorage
+        localStorage.setItem("user", JSON.stringify(state.user));
+        localStorage.setItem(
+          "isAuthenticated",
+          JSON.stringify(state.isAuthenticated)
+        );
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -186,7 +195,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.user = action.payload.user;
-        state.isAuthenticated = true;
+        state.isAuthenticated = Boolean(action.payload?.user);
+        // Store in localStorage
+        localStorage.setItem("user", JSON.stringify(state.user));
+        localStorage.setItem(
+          "isAuthenticated",
+          JSON.stringify(state.isAuthenticated)
+        );
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -203,6 +218,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user || null;
         state.isAuthenticated = Boolean(action.payload?.user);
+
+        // Store in localStorage
+        localStorage.setItem("user", JSON.stringify(state.user));
+        localStorage.setItem(
+          "isAuthenticated",
+          JSON.stringify(state.isAuthenticated)
+        );
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
@@ -210,11 +232,12 @@ const userSlice = createSlice({
         state.user = null;
 
         // ✅ Ignore "Please login..." error
-        if (action.payload !== "Please login to access this resource") {
-          state.error = action.payload || "Load user failed";
-        } else {
-          state.error = null; // ignore this case
-        }
+       if(action.payload?.statusCode !== 401){
+        state.user = null;
+        state.isAuthenticated = false;
+        localStorage.removeItem("user");
+        localStorage.removeItem("isAuthenticated");
+       }
       })
 
       // ===== Logout =====
@@ -226,6 +249,8 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.isAuthenticated = false;
+        localStorage.removeItem("user");
+        localStorage.removeItem("isAuthenticated");
       })
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;
