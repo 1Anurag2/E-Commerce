@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import "../CartStyles/OrderConfirm.css";
-import PageTitle from "../components/PageTitle";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 import { useSelector } from "react-redux";
 import CheckoutPath from "./CheckoutPath";
 import { useNavigate } from "react-router-dom";

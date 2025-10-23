@@ -16,7 +16,7 @@ import ForgotPassword from "./User/ForgotPassword";
 import ResetPassword from "./User/ResetPassword";
 import Cart from "./Cart/Cart";
 import Shipping from "./Cart/Shipping";
-import OrderConfirm from "./Cart/orderConfirm";
+import OrderConfirm from "./Cart/OrderConfirm";
 import Payment from "./Cart/Payment";
 import PaymentSuccess from "./Cart/PaymentSuccess";
 import MyOrders from "./Orders/MyOrders";
@@ -66,9 +66,18 @@ function App() {
           element={<ProtectedRoute element={<Payment />} />}
         />
         <Route path="/cart" element={<ProtectedRoute element={<Cart />} />} />
-        <Route path="/paymentSuccess" element={<ProtectedRoute element={<PaymentSuccess />} />} />
-        <Route path="/orders/user" element={<ProtectedRoute element={<MyOrders />} />} />
-        <Route path="/order/:orderId" element={<ProtectedRoute element={<OrderDetails />} />} />
+        <Route
+          path="/paymentSuccess"
+          element={<ProtectedRoute element={<PaymentSuccess />} />}
+        />
+        <Route
+          path="/orders/user"
+          element={<ProtectedRoute element={<MyOrders />} />}
+        />
+        <Route
+          path="/order/:orderId"
+          element={<ProtectedRoute element={<OrderDetails />} />}
+        />
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/reset/:token" element={<ResetPassword />} />
       </Routes>
