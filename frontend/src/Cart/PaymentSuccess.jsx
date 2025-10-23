@@ -47,9 +47,12 @@ function PaymentSuccess() {
         };
         console.log("Sending Data", orderData);
         dispatch(createOrder(orderData));
-        toast.success('Order Placed', { position: "top-center", autoClose: 3000 });
+        toast.success("Order Placed", {
+          position: "top-center",
+          autoClose: 3000,
+        });
         // sessionStorage.removeItem("orderItem");
-      
+        // localStorage.removeItem("cartItems");
       } catch (error) {
         console.log("Order Creation Error", error.message);
         toast.error(error.message || "Order Creation Error", {
@@ -71,7 +74,7 @@ function PaymentSuccess() {
       dispatch(removeSuccess());
     }
   }, [dispatch, success]);
-  
+
   useEffect(() => {
     if (error) {
       toast.error(error.message || "Order Creation Error", {
