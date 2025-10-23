@@ -14,11 +14,11 @@ import dotenv from 'dotenv';
 // Connect to the database
 ConnectDB();
 // Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
-    console.log(`Error : ${err.message}`);
-    console.log(`Shutting down the server due to uncaught exception`);
-    process.exit(1);
-})
+// process.on('uncaughtException', (err) => {
+//     console.log(`Error : ${err.message}`);
+//     console.log(`Shutting down the server due to uncaught exception`);
+//     process.exit(1);
+// })
 
 // Middleware
 app.use(express.json({ limit: "10mb" }));

@@ -10,7 +10,7 @@ cloudinary.config({
 })
 
 
-const port = process.env.PORT || 8000;
+// const port = process.env.PORT || 8000;
 
 export const instance = new Razorpay({
     key_id: process.env.RAZORPAY_API_KEY,
@@ -18,14 +18,16 @@ export const instance = new Razorpay({
 });
 
 
-const server = app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+// const server = app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
 
-process.on('unhandledRejection',(err)=>{
-    console.log(`Error : ${err.message}`);
-    console.log(`Server is shutting down , due to unhandled promise rejection`);
-    server.close(()=>{
-        process.exit(1)
-    })
-})
+// process.on('unhandledRejection',(err)=>{
+//     console.log(`Error : ${err.message}`);
+//     console.log(`Server is shutting down , due to unhandled promise rejection`);
+//     server.close(()=>{
+//         process.exit(1)
+//     })
+// })
+
+export default app;

@@ -39,6 +39,8 @@ export const getSingleOrder = handleAsyncError(async (req, res, next) => {
 // All my orders
 export const allMyOrders = handleAsyncError(async (req, res, next) => {
     const orders = await Order.find({ user: req.user._id });
+    console.log("User from verifyUserAuth:", req.user);
+
     if (!orders) {
         return next(new handleError("Orders not found", 404));
     }

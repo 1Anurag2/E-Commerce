@@ -1,11 +1,11 @@
 import express from "express";
 import orderController from "../controllers/orderController.js";
 import { roleBasedAccess, verifyUserAuth } from "../middleware/userAuth.js";
-import e from "express";
 const router = express.Router();
 
 router.route("/order/new").post(verifyUserAuth, orderController.createOrder);
 router.route("/orders/user").get(verifyUserAuth, orderController.allMyOrders);
+router.route("/order/:id").get(verifyUserAuth, orderController.getSingleOrder);
 
 
 router
